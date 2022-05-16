@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <main class="main" role="main">
+    <div class="content article-list">
+        {% for article in article_list %}
+            <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+                <div class="article-header">
+                    <h1 itemprop="name">
+                        <a class="article-title" href="{{ article.url }}">{{ article.title }}</a>
+                    </h1>
+                </div>
+                <p class="article-meta">
+                        <span class="article-date">
+                            <i class="icon icon-calendar-check"></i>
+                            <a href="{{ article.url }}" class="article-date">
+                                <time datetime="{{ article.create_time }}"
+                                      itemprop="datePublished">{{ article.pub_data }}</time>
+                            </a>
+                        </span>
+                    <span class="article-category">
+                            <i class="icon icon-folder"></i>
+                            {% for category in article.categories %}
+                            <a class="article-category-link"
+                               href="{{ category.uri }}">{{ category.name }}</a>
+                            {% endfor %}
+                        </span>
+                    <span class="article-tag">
+                            <i class="icon icon-tags"></i>
+                            {% for tag in article.tags %}
+                            <a class="article-tag-link" href="{{ tag.uri }}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </span>
+                    <span class="post-comment">
+                            <i class="icon icon-comment"></i>
+                            <a href="{{ article.url }}#comments" class="article-comment-link">评论</a>
+                        </span>
+                    <span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计:{{ article.length }}(字)</span>
+                    <span class="post-readcount hidden-xs"
+                          itemprop="timeRequired">阅读时长:{{ article.read_time }}(分)</span>
+                </p>
+            </article>
+        {% endfor %}
+
+    </div>
+</main>
+{% endblock %}
